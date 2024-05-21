@@ -56,18 +56,18 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <a href="<?php echo base_url('inicioadmin'); ?>">
+                <a href="<?php echo base_url('auditor/inicioauditor'); ?>">
                     <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Regresar" width="41"
                         height="41" />
                 </a>
-                <a href="<?php echo base_url('admin/mantenimiento/mostrar'); ?>">
+                <a href="<?php echo base_url('auditor/mantenimiento/mostrar'); ?>">
                     <img src="https://cdn-icons-png.flaticon.com/512/5397/5397386.png" alt="Regresar" width="41"
                         height="41" />
                 </a>
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <form action="<?= base_url('admin/mantenimiento/almacen') ?>" method="POST"
+                            <form action="<?= base_url('auditor/mantenimiento/almacen') ?>" method="POST"
                                 class="form-inline">
                                 <div class="input-group">
                                     <input class="form-control" type="search" id="keywords" name="keywords" size="30"
@@ -114,8 +114,6 @@
                             <td><?=$mante->fechaEntrada ?></td>
                             <td><?=$mante->fechaSalida ?></td>
                             <td class="acciones">
-                                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                                <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                 <a href="#" class="btn btn-success"><i class="fas fa-qrcode"></i></a>
                             </td>
                         </tr>
@@ -146,11 +144,11 @@
 
 <script>
 document.getElementById('generateGeneralReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('admin/Almacen-General-PDF'); ?>';
+    window.location.href = '<?= base_url('auditor/Almacen-General-PDF'); ?>';
 });
 
 document.getElementById('generateAulaReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('admin/Almacen-PDF/'); ?>';
+    window.location.href = '<?= base_url('auditor/Almacen-PDF/'); ?>';
 });
 </script>
 

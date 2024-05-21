@@ -64,24 +64,30 @@ class MantenimientoController extends BaseController
 
     public function reparacion(){   
         $reparacionModel = model('ReparacionModel');
+        $aulaModel = model('AulaModel');
 
         $data['reparacion'] = $reparacionModel->findAll();
+        $data['aulas'] = $aulaModel->findAll();
         return 
         view('admin/mantenimiento/reparacion', $data);
     }
 
     public function reparacion1(){   
-        $reparacionModel = model('ReparacionModel');
-
+         $reparacionModel = model('ReparacionModel');
+        $aulaModel = model('AulaModel');
+        
         $data['reparacion'] = $reparacionModel->findAll();
+        $data['aulas'] = $aulaModel->findAll();
         return 
         view('inventa/mantenimiento/reparacion', $data);
     }
 
     public function reparacion2(){   
         $reparacionModel = model('ReparacionModel');
-
+        $aulaModel = model('AulaModel');
+        
         $data['reparacion'] = $reparacionModel->findAll();
+        $data['aulas'] = $aulaModel->findAll();
         return 
         view('auditor/mantenimiento/reparacion', $data);
     }
@@ -237,8 +243,6 @@ class MantenimientoController extends BaseController
 
         $data['aulas'] = $aulaModel->findAll();
         $data['mantenimiento'] = $mantenimientoModel->findAll();
-        
-
 
         $html = view('admin/mantenimiento/plantillaAlmacen', $data);
 
@@ -258,8 +262,80 @@ class MantenimientoController extends BaseController
     $data['aulas'] = $aulaModel->findAll();
     $data['mantenimiento'] = $mantenimientoModel->findAll();
 
-
     $html = view('admin/mantenimiento/plantilla_general_Almacen', $data);
+
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $dompdf->stream("material_list_general.pdf", array("Attachment" => 0));
+}
+
+public function generatePDF1()
+    {
+        $reparacionModel = model('ReparacionModel');
+        $aulaModel = model('AulaModel');
+
+        $data['aulas'] = $aulaModel->findAll();
+        $data['reparacion'] = $reparacionModel->findAll();
+        
+
+        $html = view('admin/mantenimiento/plantillaReparacion', $data);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("material_list.pdf", array("Attachment" => 0));
+    }
+
+    public function generateGeneralPDF1()
+{
+    $reparacionModel = model('ReparacionModel');
+    $aulaModel = model('AulaModel');
+
+        $data['aulas'] = $aulaModel->findAll();
+        $data['reparacion'] = $reparacionModel->findAll();
+
+
+    $html = view('admin/mantenimiento/plantilla_general_Reparacion', $data);
+
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $dompdf->stream("material_list_general.pdf", array("Attachment" => 0));
+}
+
+public function generatePDF2()
+    {
+        
+        $descontinuoModel = model('DescontinuadoModel');
+        $aulaModel = model('AulaModel');
+
+        $data['aulas'] = $aulaModel->findAll();
+        $data['descontinuo'] = $descontinuoModel->findAll();
+        
+
+
+        $html = view('admin/mantenimiento/plantillaDescontinuado', $data);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("material_list.pdf", array("Attachment" => 0));
+    }
+
+    public function generateGeneralPDF2()
+{
+    $descontinuoModel = model('DescontinuadoModel');
+    $aulaModel = model('AulaModel');
+
+    $data['aulas'] = $aulaModel->findAll();
+    $data['descontinuo'] = $descontinuoModel->findAll();
+
+    $html = view('admin/mantenimiento/plantilla_general_Descontinuado', $data);
 
     $dompdf = new Dompdf();
     $dompdf->loadHtml($html);

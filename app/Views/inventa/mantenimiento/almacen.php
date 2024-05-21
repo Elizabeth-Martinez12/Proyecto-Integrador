@@ -114,8 +114,6 @@
                             <td><?=$mante->fechaEntrada ?></td>
                             <td><?=$mante->fechaSalida ?></td>
                             <td class="acciones">
-                                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                                <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                 <a href="#" class="btn btn-success"><i class="fas fa-qrcode"></i></a>
                             </td>
                         </tr>

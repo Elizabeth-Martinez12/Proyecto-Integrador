@@ -80,6 +80,13 @@
                     </div>
                 </div>
                 <h2>Descontinuado</h2>
+                <div class="container d-flex justify-content-end">
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#reportModal">
+                        <img src="https://titanioestudio.es/wp-content/uploads/2019/07/icono-de-descarga-documento.png"
+                            width="50" height="50" alt="Imprimir" />
+                    </button>
+                </div>
+
                 <table class="table">
                     <thead>
                         <th>Nombre</th>
@@ -94,8 +101,6 @@
                             <td><?=$desco->razon ?></td>
                             <td><?=$desco->fechaSalida ?></td>
                             <td class="acciones">
-                                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                                <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                 <a href="#" class="btn btn-success"><i class="fas fa-qrcode"></i></a>
                             </td>
                         </tr>
@@ -106,6 +111,31 @@
         </div>
     </div>
 </body>
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">Seleccionar tipo de reporte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Qué tipo de reporte deseas generar?</p>
+                <button type="button" class="btn btn-primary" id="generateGeneralReport">Reporte General</button>
+                <button type="button" class="btn btn-secondary" id="generateAulaReport">Reporte lista
+                    materiales</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+document.getElementById('generateGeneralReport').addEventListener('click', function() {
+    window.location.href = '<?= base_url('inventa/Descontinuado-General-PDF'); ?>';
+});
+
+document.getElementById('generateAulaReport').addEventListener('click', function() {
+    window.location.href = '<?= base_url('inventa/Descontinuado-PDF/'); ?>';
+});
+</script>
 </html>
 <?= $this->endSection();?>

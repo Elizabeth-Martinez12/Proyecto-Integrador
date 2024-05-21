@@ -49,7 +49,6 @@ $routes->group(
         $routes->post('mantenimiento/descontinuado', 'MantenimientoController::buscar3');
         $routes->get('mantenimiento/reparacion', 'MantenimientoController::reparacion');
         $routes->get('mantenimiento/descontinuado', 'MantenimientoController::descontinuado');
-        $routes->get('admin', 'UserController::admin');
 
 
         $routes->get('Aula-PDF/(:num)', 'AulaController::generatePDF/$1');
@@ -61,11 +60,11 @@ $routes->group(
         $routes->get('Almacen-PDF', 'MantenimientoController::generatePDF');
         $routes->get('Almacen-General-PDF', 'MantenimientoController::generateGeneralPDF');
 
-        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF');
-        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF');
+        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF1');
+        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF1');
 
-        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF');
-        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF');
+        $routes->get('Descontinuado-PDF', 'MantenimientoController::generatePDF2');
+        $routes->get('Descontinuado-General-PDF', 'MantenimientoController::generateGeneralPDF2');
     }
 
 
@@ -101,9 +100,9 @@ $routes->group(
         $routes->post('mantenimiento/almacen', 'MantenimientoController::buscar1');
         $routes->post('mantenimiento/reparacion', 'MantenimientoController::buscar2');
         $routes->post('mantenimiento/descontinuado', 'MantenimientoController::buscar3');
-        $routes->get('mantenimiento/reparacion', 'MantenimientoController::reparacion');
-        $routes->get('mantenimiento/descontinuado', 'MantenimientoController::descontinuado');
-        $routes->get('admin', 'UserController::admin');
+        $routes->get('mantenimiento/reparacion', 'MantenimientoController::reparacion1');
+        $routes->get('mantenimiento/descontinuado', 'MantenimientoController::descontinuado1');
+        
 
 
         $routes->get('Aula-PDF/(:num)', 'AulaController::generatePDF/$1');
@@ -115,11 +114,11 @@ $routes->group(
         $routes->get('Almacen-PDF', 'MantenimientoController::generatePDF');
         $routes->get('Almacen-General-PDF', 'MantenimientoController::generateGeneralPDF');
 
-        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF');
-        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF');
+        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF1');
+        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF1');
 
-        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF');
-        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF');
+        $routes->get('Descontinuado-PDF', 'MantenimientoController::generatePDF2');
+        $routes->get('Descontinuado-General-PDF', 'MantenimientoController::generateGeneralPDF2');
     }
 
 );
@@ -148,9 +147,8 @@ $routes->group(
         $routes->post('mantenimiento/almacen', 'MantenimientoController::buscar1');
         $routes->post('mantenimiento/reparacion', 'MantenimientoController::buscar2');
         $routes->post('mantenimiento/descontinuado', 'MantenimientoController::buscar3');
-        $routes->get('mantenimiento/reparacion', 'MantenimientoController::reparacion');
-        $routes->get('mantenimiento/descontinuado', 'MantenimientoController::descontinuado');
-        $routes->get('admin', 'UserController::admin');
+        $routes->get('mantenimiento/reparacion', 'MantenimientoController::reparacion2');
+        $routes->get('mantenimiento/descontinuado', 'MantenimientoController::descontinuado2');
 
 
         $routes->get('Aula-PDF/(:num)', 'AulaController::generatePDF/$1');
@@ -162,11 +160,11 @@ $routes->group(
         $routes->get('Almacen-PDF', 'MantenimientoController::generatePDF');
         $routes->get('Almacen-General-PDF', 'MantenimientoController::generateGeneralPDF');
 
-        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF');
-        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF');
+        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF1');
+        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF1');
 
-        $routes->get('Reparacion-PDF', 'MantenimientoController::generatePDF');
-        $routes->get('Reparacion-General-PDF', 'MantenimientoController::generateGeneralPDF');
+        $routes->get('Descontinuado-PDF', 'MantenimientoController::generatePDF2');
+        $routes->get('Descontinuado-General-PDF', 'MantenimientoController::generateGeneralPDF2');
     }
 
 );

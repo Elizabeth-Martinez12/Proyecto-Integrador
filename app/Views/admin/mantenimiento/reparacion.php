@@ -76,6 +76,12 @@
                     </div>
                 </div>
                 <h2>Reparacion</h2>
+                <div class="container d-flex justify-content-end">
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#reportModal">
+                        <img src="https://titanioestudio.es/wp-content/uploads/2019/07/icono-de-descarga-documento.png"
+                            width="50" height="50" alt="Imprimir" />
+                    </button>
+                </div>
                 <table class="table">
                     <thead>
                         <th>Nombre</th>
@@ -86,6 +92,7 @@
                     </thead>
                     <tbody>
                         <?php foreach($reparacion as $reparaciones):?>
+                            
                         <tr>
                             <td><?=$reparaciones->nombre ?></td>
                             <td><?=$reparaciones->tipoReparacion ?></td>
@@ -104,6 +111,31 @@
         </div>
     </div>
 </body>
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">Seleccionar tipo de reporte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Qué tipo de reporte deseas generar?</p>
+                <button type="button" class="btn btn-primary" id="generateGeneralReport">Reporte General</button>
+                <button type="button" class="btn btn-secondary" id="generateAulaReport">Reporte lista
+                    materiales</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+document.getElementById('generateGeneralReport').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Reparacion-General-PDF'); ?>';
+});
+
+document.getElementById('generateAulaReport').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Reparacion-PDF/'); ?>';
+});
+</script>
 </html>
 <?= $this->endSection();?>

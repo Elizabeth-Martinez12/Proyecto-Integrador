@@ -29,6 +29,7 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'auth'          => Auth::class,
         'noauth'        => Noauth::class,
+        
     ];
 
     /**

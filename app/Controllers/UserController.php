@@ -69,14 +69,18 @@ public function inicioauditor(){   // Funcion de mostrar la cual presenta los da
             if(($user['perfil'] == 1) && ($user['status'] == 1)) {
                 return redirect()->to(base_url('admin/inicioadmin'));
             }
-
+            
             if(($user['perfil'] == 2) && ($user['status'] == 1)) {
                 return redirect()->to(base_url('inventa/inicioinventa'));
             }
-
+            
             if(($user['perfil'] == 3) && ($user['status'] == 1)) {
                 return redirect()->to(base_url('auditor/inicioauditor'));
             }
+            
+            // Si el perfil no coincide con ninguno de los anteriores, redirigir a una página de error o a un inicio genérico
+            return redirect()->to(base_url('error'));
+            
         }
     }
     return view('login');

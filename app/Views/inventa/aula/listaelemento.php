@@ -134,14 +134,6 @@
                             <td><?= $inventa->status == 1 ? 'Activo' : 'Inactivo' ?></td>
                             <td><?= $inventa->created_at ?></td>
                             <td class="acciones">
-                                <a href="<?= base_url('inventa/inventario/delete/'.$inventa->id); ?>"
-                                    class="btn btn-danger">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                                <a href="<?= base_url('inventa/inventario/editar/'.$inventa->id); ?>"
-                                    class="btn btn-primary">
-                                    <i class="fas fa-edit"></i>
-                                </a>
 
                                 <a href="#" class="btn btn-success open-modal"
                                     data-bs-target="#qrModal<?= $inventa->id; ?>">

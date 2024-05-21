@@ -26,24 +26,24 @@
 </head>
 <body>
     <div class="container">
-        <a href="<?php echo base_url('admin/inicioadmin'); ?>">
+        <a href="<?php echo base_url('auditor/inicioauditor'); ?>">
             <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Regresar" width="41" height="41" />
         </a>
         <h2>Mantenimiento</h2>
         <div class="row mt-4">
             <div class="col-md-4">
                 <div class="card">
-                    <a href="<?php echo base_url('admin/mantenimiento/almacen'); ?>" class="btn btn-primary btn-custom btn-block d-flex flex-column align-items-center"><img src="https://cdn-icons-png.flaticon.com/512/2795/2795451.png" alt="Almacen"  height="150">Almacen</a>
+                    <a href="<?php echo base_url('auditor/mantenimiento/almacen'); ?>" class="btn btn-primary btn-custom btn-block d-flex flex-column align-items-center"><img src="https://cdn-icons-png.flaticon.com/512/2795/2795451.png" alt="Almacen"  height="150">Almacen</a>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <a href="<?php echo base_url('admin/mantenimiento/reparacion'); ?>" class="btn btn-primary btn-custom btn-block d-flex flex-column align-items-center"><img src="https://cdn-icons-png.flaticon.com/512/4919/4919275.png" alt="Reparacion"  height="150">Reparacion</a>
+                    <a href="<?php echo base_url('auditor/mantenimiento/reparacion'); ?>" class="btn btn-primary btn-custom btn-block d-flex flex-column align-items-center"><img src="https://cdn-icons-png.flaticon.com/512/4919/4919275.png" alt="Reparacion"  height="150">Reparacion</a>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <a href="<?php echo base_url('admin/mantenimiento/descontinuado'); ?>" class="btn btn-primary btn-custom btn-block d-flex flex-column align-items-center"><img src="https://cdn-icons-png.flaticon.com/512/5610/5610109.png" alt="Descontinuado"  height="150">Descontinuado</a>
+                    <a href="<?php echo base_url('auditor/mantenimiento/descontinuado'); ?>" class="btn btn-primary btn-custom btn-block d-flex flex-column align-items-center"><img src="https://cdn-icons-png.flaticon.com/512/5610/5610109.png" alt="Descontinuado"  height="150">Descontinuado</a>
                 </div>
             </div>
         </div>
