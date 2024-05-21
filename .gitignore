@@ -1,0 +1,24 @@
+# Ignorar configuración de desarrollo
+*/config/development
+
+# Ignorar archivos de registro
+*/logs/log-*.php
+!*/logs/index.html
+
+# Ignorar directorios de caché
+*/cache/*
+!system/cache/*
+!*/cache/index.html
+!*/cache/.htaccess
+
+# Ignorar artefactos de compilación de la guía del usuario
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+
+# Ignorar el directorio vendor (gestionado por Composer)
+/vendor/
+
+# Considera ignorar el directorio writable
+writable/
