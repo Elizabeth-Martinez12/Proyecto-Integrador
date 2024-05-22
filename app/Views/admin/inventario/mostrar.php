@@ -141,11 +141,10 @@
                                     class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                                 <a href="<?= base_url('admin/inventario/editar/'.$inventa->id); ?>"
                                     class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                <a href="<?= base_url('admin/inventario/generarQR/'.$inventa->id); ?>"
-                                    class="btn btn-success"><i class="fas fa-qrcode"></i></a>
-                                <a href="#" class="btn btn-secondary open-modal"
+                                
+                                <a href="#" class="btn btn-success open-modal"
                                     data-bs-target="#qrModal<?= $inventa->id; ?>">
-                                    <i class="fas fa-eye"></i> Ver QR
+                                    <i class="fas fa-qrcode"></i> Ver QR
                                 </a>
                                 <div class="modal fade" id="qrModal<?= $inventa->id; ?>" tabindex="-1"
                                     aria-labelledby="qrModalLabel<?= $inventa->id; ?>" aria-hidden="true">
@@ -173,6 +172,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </td>
                         </tr>
                         <?php endforeach ?>
@@ -184,20 +184,21 @@
 </body>
 
 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reportModalLabel">Seleccionar tipo de reporte</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Qué tipo de reporte deseas generar?</p>
-                    <button type="button" class="btn btn-primary" id="generateGeneralReport">Reporte General</button>
-                    <button type="button" class="btn btn-secondary" id="generateAulaReport">Reporte lista materiales</button>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">Seleccionar tipo de reporte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Qué tipo de reporte deseas generar?</p>
+                <button type="button" class="btn btn-primary" id="generateGeneralReport">Reporte General</button>
+                <button type="button" class="btn btn-secondary" id="generateAulaReport">Reporte lista
+                    materiales</button>
             </div>
         </div>
     </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.3/dist/js/bootstrap.min.js"></script>
@@ -213,12 +214,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.getElementById('generateGeneralReport').addEventListener('click', function() {
-        window.location.href = '<?= base_url('admin/Inventario-General-PDF'); ?>';
-    });
+    window.location.href = '<?= base_url('admin/Inventario-General-PDF'); ?>';
+});
 
-    document.getElementById('generateAulaReport').addEventListener('click', function() {
-        window.location.href = '<?= base_url('admin/Inventario-PDF/'); ?>';
-    });
+document.getElementById('generateAulaReport').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Inventario-PDF/'); ?>';
+});
 </script>
 
 

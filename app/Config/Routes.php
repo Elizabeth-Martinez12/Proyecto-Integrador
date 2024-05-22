@@ -28,8 +28,8 @@ $routes->group(
         $routes->post('aula/insert', 'AulaController::insert');
         $routes->post('aula/update', 'AulaController::update');
 
-        $routes->get('inventario/generarQR/(:num)', 'InventarioController::generarQR/$1');
-        $routes->get('qr/(:any)', 'InventarioController::verQR/$1');
+        $routes->get('inventario/generarQR/(:num)', 'AulaController::generarQR/$1');
+        $routes->get('qr/(:any)', 'AulaController::verQR/$1');
 
 
         $routes->get('inventario/mostrar', 'InventarioController::mostrar');
@@ -49,7 +49,7 @@ $routes->group(
         $routes->post('mantenimiento/descontinuado', 'MantenimientoController::buscar3');
         $routes->get('mantenimiento/reparacion', 'MantenimientoController::reparacion');
         $routes->get('mantenimiento/descontinuado', 'MantenimientoController::descontinuado');
-
+        $routes->get('mantenimiento/delete/(:num)', 'MantenimientoController::delete/$1');
 
         $routes->get('Aula-PDF/(:num)', 'AulaController::generatePDF/$1');
         $routes->get('Aula-General-PDF', 'AulaController::generateGeneralPDF');

@@ -1,4 +1,5 @@
-<?= $this->extend('template/main2'); ?>
+
+<?= $this->extend('template/main'); ?>
 <?= $this->section('content'); ?>
 <!DOCTYPE html>
 <html>
@@ -55,11 +56,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <a href="<?php echo base_url('auditor/inicioauditor'); ?>">
+                <a href="<?php echo base_url('admin/inicioadmin'); ?>">
                     <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Regresar" width="41"
                         height="41" />
                 </a>
-                <a href="<?php echo base_url('auditor/mantenimiento/mostrar'); ?>">
+                <a href="<?php echo base_url('admin/mantenimiento/mostrar'); ?>">
                     <img src="https://cdn-icons-png.flaticon.com/512/5397/5397386.png" alt="Regresar" width="41"
                         height="41" />
                 </a>
@@ -67,7 +68,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <form action="<?= base_url('auditor/mantenimiento/descontinuado') ?>" method="POST" class="form-inline">
+                            <form action="<?= base_url('admin/mantenimiento/descontinuado') ?>" method="POST" class="form-inline">
                                 <div class="input-group">
                                     <input class="form-control" type="search" id="keywords" name="keywords" size="30"
                                         maxlength="30" placeholder="Buscar" aria-label="Search">
@@ -86,21 +87,27 @@
                             width="50" height="50" alt="Imprimir" />
                     </button>
                 </div>
-
                 <table class="table">
                     <thead>
                         <th>Nombre</th>
                         <th>Razon</th>
-                        <th>Fecha de Salida</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>
                         <?php foreach($descontinuo as $desco):?>
+                            <?php foreach($material as $materiales){
+                                        if($materiales->idMate == $desco->nombre){;
+                                            break;
+                                        }
+                                    }
+                                    ?>
                         <tr>
-                            <td><?=$desco->nombre ?></td>
+                        <td><?=$materiales->nombre ?></td>
                             <td><?=$desco->razon ?></td>
                             <td><?=$desco->fechaSalida ?></td>
                             <td class="acciones">
+                                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                 <a href="#" class="btn btn-success"><i class="fas fa-qrcode"></i></a>
                             </td>
                         </tr>
@@ -111,6 +118,8 @@
         </div>
     </div>
 </body>
+
+
 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -120,8 +129,8 @@
             </div>
             <div class="modal-body">
                 <p>¿Qué tipo de reporte deseas generar?</p>
-                <button type="button" class="btn btn-primary" id="generateGeneralReport">Reporte General</button>
-                <button type="button" class="btn btn-secondary" id="generateAulaReport">Reporte lista
+                <button type="button" class="btn btn-primary" id="generateGeneralReport2">Reporte General</button>
+                <button type="button" class="btn btn-secondary" id="generateAulaReport2">Reporte lista
                     materiales</button>
             </div>
         </div>
@@ -129,13 +138,16 @@
 </div>
 
 <script>
-document.getElementById('generateGeneralReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('auditor/Descontinuado-General-PDF'); ?>';
+document.getElementById('generateGeneralReport2').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Descontinuado-General-PDF2'); ?>';
 });
 
-document.getElementById('generateAulaReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('auditor/Descontinuado-PDF/'); ?>';
+document.getElementById('generateAulaReport2').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Descontinuado-PDF2/'); ?>';
 });
 </script>
+
 </html>
-<?= $this->endSection();?>
+
+<?= $this->endSection(); ?>
+</html>

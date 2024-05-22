@@ -59,8 +59,7 @@ class InventarioController extends BaseController
         $data['inventarios'] =$inventarioModel->findAll();
         $data['aulas'] = $aulaModel->findAll();
         $data['categoria'] =$categoriaModel->findAll();
-        return 
-        view('admin/inventario/agregar', $data);
+        return redirect()->to('/admin/aula/listaelementos/' . $_POST['idAula']);
     }
 
     public function agregar1(){ 
@@ -110,8 +109,8 @@ class InventarioController extends BaseController
     public function insert1()
     {
         $inventarioModel = model('InventarioModel');
-        $aulaModel = model('AulaModel');
         $categoriaModel = model('CategoriaModel');
+        $aulaModel = model('AulaModel');
         $materialModel = model('MaterialModel');
         $data['material'] =$materialModel->findAll();
         $data['aulas'] = $aulaModel->findAll();
@@ -137,17 +136,30 @@ class InventarioController extends BaseController
         return redirect('inventa/inventario/mostrar');
     } 
 
-
+    
     public function generarQR($id)
 {
     $inventarioModel = model('InventarioModel');
     $articulo = $inventarioModel->find($id);
+    
+    // Obtener nombre del material
+    $materialModel = model('MaterialModel');
+    $material = $materialModel->find($articulo->nombre);
+    
+    // Obtener nombre de la categoría
+    $categoriaModel = model('CategoriaModel');
+    $categoria = $categoriaModel->find($articulo->categoria);
+    
+    // Obtener número de aula
+    $aulaModel = model('AulaModel');
+    $aula = $aulaModel->find($articulo->idAula); // Usar idAula en lugar de aula
 
     $contenido = /*'Imagen: ' . $articulo->imagen . "\n" .*/
-                 'Nombre: ' . $articulo->nombre . "\n" .
-                 'Categoría: ' . $articulo->categoria . "\n" .
+                 'Nombre: ' . $material->nombre . "\n" .
+                 'Categoría: ' . $categoria->nombre . "\n" .
                  'Descripción: ' . $articulo->descripcion . "\n" .
-                 'Status: ' . $articulo->status;
+                 'Status: ' . $articulo->status . "\n" .
+                 'Aula: ' . $aula->numero; // Agregar el número de aula al contenido del QR
 
     $qrOptions = new QROptions([
         'outputType' => QRCode::OUTPUT_IMAGE_PNG,
@@ -169,19 +181,21 @@ class InventarioController extends BaseController
     return base_url('admin/qr/' . $id . '.png');
 }
 
-
-public function verQR($archivo)
-{
-    $rutaArchivo = WRITEPATH . 'qr/' . $archivo;
-    if (!file_exists($rutaArchivo)) {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Archivo no encontrado: ' . $archivo);
-    }
-    $respuesta = $this->response
-        ->setContentType('image/png')
-        ->setBody(file_get_contents($rutaArchivo));
-
-    return $respuesta;
-}
+    
+        
+        
+        public function verQR($archivo)
+        {
+            $rutaArchivo = WRITEPATH . 'qr/' . $archivo;
+            if (!file_exists($rutaArchivo)) {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException('Archivo no encontrado: ' . $archivo);
+            }
+            $respuesta = $this->response
+                ->setContentType('image/png')
+                ->setBody(file_get_contents($rutaArchivo));
+        
+            return $respuesta;
+        }
 
 
 
@@ -209,35 +223,117 @@ public function verQR($archivo)
         return 
         view('admin/inventario/editar', $data);
     }
-
-    
-    public function update()
+public function update()
     {
         $inventarioModel = model('InventarioModel');
+        $mantenimientoModel = model('MantenimientoModel');
+        $reparacionModel = model('ReparacionModel');
+        $descontinuadoModel = model('DescontinuadoModel');
+        $almacenModel = model('AlmacenModel');  // Asegúrate de tener un modelo para la tabla de Almacén
         $aulaModel = model('AulaModel');
-        $categoriaModel = model('CategoriaModel');
-        $materialModel = model('MaterialModel');
-        $validation = \Config\Services::validation(); 
+    
+        $validation = \Config\Services::validation();
         $validation->setRules([
             'nombre' => 'required',
             'categoria' => 'required',
             'descripcion' => 'required',
             'status' => 'required',
+            'inactivoStatus' => 'permit_empty',
+            'razon' => 'permit_empty',
+            'fechaSalida' => 'permit_empty',
+            'tipoReparacion' => 'permit_empty',
+            'fechaIngreso' => 'permit_empty',
+            'fechaSalidaReparacion' => 'permit_empty',
+            'nombreAlmacen' => 'permit_empty',
+            'descripcionAlmacen' => 'permit_empty',
+            'fechaEntrada' => 'permit_empty',
+            'fechaSalidaAlmacen' => 'permit_empty'
         ]);
+    
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
+    
+        $id = $this->request->getPost('id');
+        $idAula = $this->request->getPost('idAula');
+    
+        // Verificar si el idAula existe en la tabla aula
+        if (!$aulaModel->find($idAula)) {
+            return redirect()->back()->withInput()->with('error', 'El ID del aula no es válido.');
+        }
+    
+        // Obtener el artículo desde la tabla inventario
+        $articulo = $inventarioModel->find($id);
+        if (!$articulo) {
+            return redirect()->back()->withInput()->with('error', 'El artículo no existe en el inventario.');
+        }
+    
         $data = [
-            "nombre" => $_POST['nombre'],
-            "categoria" => $_POST['categoria'],
-            "descripcion" => $_POST['descripcion'],
-            "status" => $_POST['status'],
-            "idAula" => $_POST['idAula'] // Asegúrate de incluir esto si estás usando idAula en tu formulario
+            "nombre" => $this->request->getPost('nombre'),
+            "categoria" => $this->request->getPost('categoria'),
+            "descripcion" => $this->request->getPost('descripcion'),
+            "status" => $this->request->getPost('status'),
+            "idAula" => $idAula
         ];
-        
-        $inventarioModel->update($_POST['id'], $data);
-        return redirect('admin/inventario/mostrar','refresh');
+    
+        try {
+            if ($this->request->getPost('status') == '0') {
+                // Si el estado es inactivo, mover el artículo a la tabla correspondiente
+                $inactivoStatus = $this->request->getPost('inactivoStatus');
+                $articuloData = [
+                    'nombre' => $articulo->nombre,
+                    'categoria' => $articulo->categoria,
+                    'descripcion' => $articulo->descripcion,
+                    'idAula' => $articulo->idAula
+                ];
+    
+                switch ($inactivoStatus) {
+                    case 'almacen':
+                        $almacenData = [
+                            'nombre' => $articulo->nombre,  // Usar el nombre del artículo desde inventario
+                            'descripcion' => $this->request->getPost('descripcionAlmacen'),
+                            'idAula' => $articulo->idAula,
+                            'fechaEntrada' => $this->request->getPost('fechaEntrada'),
+                            'fechaSalida' => $this->request->getPost('fechaSalidaAlmacen')
+                        ];
+                        $almacenModel->insert($almacenData);
+                        break;
+                    case 'reparacion':
+                        $reparacionData = [
+                            'nombre' => $articulo->nombre,  // Usar el nombre del artículo desde inventario
+                            'categoria' => $articulo->categoria,
+                            'descripcion' => $articulo->descripcion,
+                            'idAula' => $articulo->idAula,
+                            'tipoReparacion' => $this->request->getPost('tipoReparacion'),
+                            'fechaIngreso' => $this->request->getPost('fechaIngreso'),
+                            'fechaSalida' => $this->request->getPost('fechaSalidaReparacion')
+                        ];
+                        $reparacionModel->insert($reparacionData);
+                        break;
+                    case 'descontinuado':
+                        $descontinuadoData = [
+                            'nombre' => $articulo['nombre'],  // Usar el nombre del artículo desde inventario
+                            'razon' => $this->request->getPost('razon'),
+                            'fechaSalida' => $this->request->getPost('fechaSalida'),
+                            'idAula' => $articulo['idAula']
+                        ];
+                        $descontinuadoModel->insert($descontinuadoData);
+                        break;
+                }
+    
+                // Eliminar el artículo de la tabla inventario
+                $inventarioModel->delete($id);
+            } else {
+                // Si el estado es activo, simplemente actualizar el registro
+                $inventarioModel->update($id, $data);
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error al actualizar el inventario: ' . $e->getMessage());
+        }
+    
+        return redirect('admin/inventario/mostrar')->with('message', 'Artículo actualizado exitosamente');
     }
+
 
 
     public function buscar() {

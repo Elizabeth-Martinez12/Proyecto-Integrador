@@ -84,6 +84,7 @@
                 </div>
                 <table class="table">
                     <thead>
+                        <th>Aula</th>
                         <th>Nombre</th>
                         <th>Tipo de Reparacion</th>
                         <th>Fecha de Entrada</th>
@@ -92,9 +93,22 @@
                     </thead>
                     <tbody>
                         <?php foreach($reparacion as $reparaciones):?>
-                            
+                            <?php foreach($material as $materiales){
+                                        if($materiales->idMate == $reparaciones->nombre){;
+                                            break;
+                                        }
+                                    }
+                                    ?>
+
+                        <?php foreach($aulas as $aula){
+                                        if($aula->id == $reparaciones->idAula){;
+                                            break;
+                                        }
+                                    }
+                                    ?>
                         <tr>
-                            <td><?=$reparaciones->nombre ?></td>
+                            <td><?=$aula->numero ?></td>
+                            <td><?=$materiales->nombre ?></td>
                             <td><?=$reparaciones->tipoReparacion ?></td>
                             <td><?=$reparaciones->fechaIngreso ?></td>
                             <td><?=$reparaciones->fechaSalida ?></td>

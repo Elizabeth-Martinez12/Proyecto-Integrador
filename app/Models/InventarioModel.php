@@ -54,6 +54,14 @@ class InventarioModel extends Model
                 ->groupEnd()
                 ->findAll();
 }
+public function getArticuloConNombreYCategoria($id)
+{
+    return $this->select('inventario.*, material.nombre as nombre_material, categoria.nombre as nombre_categoria')
+                ->join('material', 'materiales.idMate = inventario.nombre')
+                ->join('categoria', 'categorias.idCategoria = inventario.categoria')
+                ->where('inventario.id', $id)
+                ->first();
+}
 
 
 }

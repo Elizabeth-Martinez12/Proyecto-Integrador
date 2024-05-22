@@ -144,10 +144,9 @@
                                     class="btn btn-primary">
                                     <i class="fas fa-edit"></i>
                                 </a>
-
                                 <a href="#" class="btn btn-success open-modal"
                                     data-bs-target="#qrModal<?= $inventa->id; ?>">
-                                    <i class="fas fa-qrcode"></i>
+                                    <i class="fas fa-qrcode"></i> Ver QR
                                 </a>
                                 <div class="modal fade" id="qrModal<?= $inventa->id; ?>" tabindex="-1"
                                     aria-labelledby="qrModalLabel<?= $inventa->id; ?>" aria-hidden="true">
@@ -160,11 +159,11 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="<?= base_url('qr/' . $inventa->id . '.png'); ?>"
+                                                <img src="<?= base_url('admin/qr/' . $inventa->id . '.png'); ?>"
                                                     alt="Código QR de <?= $inventa->nombre; ?>" class="img-fluid">
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="<?= base_url('qr/' . $inventa->id . '.png'); ?>"
+                                                <a href="<?= base_url('admin/qr/' . $inventa->id . '.png'); ?>"
                                                     download="qr-<?= $inventa->nombre; ?>.png" class="btn btn-primary"
                                                     style="margin-left: auto;">
                                                     <i class="fas fa-download"></i> Descargar

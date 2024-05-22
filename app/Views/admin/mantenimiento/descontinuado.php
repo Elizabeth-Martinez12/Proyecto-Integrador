@@ -1,3 +1,4 @@
+
 <?= $this->extend('template/main'); ?>
 <?= $this->section('content'); ?>
 <!DOCTYPE html>
@@ -86,7 +87,6 @@
                             width="50" height="50" alt="Imprimir" />
                     </button>
                 </div>
-
                 <table class="table">
                     <thead>
                         <th>Nombre</th>
@@ -97,9 +97,9 @@
                     <tbody>
                         <?php foreach($descontinuo as $desco):?>
                         <tr>
-                            <td><?=$desco->nombre ?></td>
-                            <td><?=$desco->razon ?></td>
-                            <td><?=$desco->fechaSalida ?></td>
+                            <td><?=$desco['nombrem'] ?></td>
+                            <td><?=$desco['razon'] ?></td>
+                            <td><?=$desco['fechaSalida'] ?></td>
                             <td class="acciones">
                                 <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                                 <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
@@ -113,6 +113,8 @@
         </div>
     </div>
 </body>
+
+
 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -122,8 +124,8 @@
             </div>
             <div class="modal-body">
                 <p>¿Qué tipo de reporte deseas generar?</p>
-                <button type="button" class="btn btn-primary" id="generateGeneralReport">Reporte General</button>
-                <button type="button" class="btn btn-secondary" id="generateAulaReport">Reporte lista
+                <button type="button" class="btn btn-primary" id="generateGeneralReport2">Reporte General</button>
+                <button type="button" class="btn btn-secondary" id="generateAulaReport2">Reporte lista
                     materiales</button>
             </div>
         </div>
@@ -131,13 +133,16 @@
 </div>
 
 <script>
-document.getElementById('generateGeneralReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('admin/Descontinuado-General-PDF'); ?>';
+document.getElementById('generateGeneralReport2').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Descontinuado-General-PDF2'); ?>';
 });
 
-document.getElementById('generateAulaReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('admin/Descontinuado-PDF/'); ?>';
+document.getElementById('generateAulaReport2').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Descontinuado-PDF2/'); ?>';
 });
 </script>
+
 </html>
-<?= $this->endSection();?>
+
+<?= $this->endSection(); ?>
+</html>

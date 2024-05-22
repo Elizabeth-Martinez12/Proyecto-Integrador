@@ -1,4 +1,4 @@
-<?= $this->extend('template/main2'); ?>
+<?= $this->extend('template/main'); ?>
 <?= $this->section('content'); ?>
 <!DOCTYPE html>
 <html>
@@ -51,11 +51,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <a href="<?php echo base_url('auditor/inicioauditor'); ?>">
+                <a href="<?php echo base_url('admin/inicioadmin'); ?>">
                     <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Regresar" width="41"
                         height="41" />
                 </a>
-                <a href="<?php echo base_url('auditor/mantenimiento/mostrar'); ?>">
+                <a href="<?php echo base_url('admin/mantenimiento/mostrar'); ?>">
                     <img src="https://cdn-icons-png.flaticon.com/512/5397/5397386.png" alt="Regresar" width="41"
                         height="41" />
                 </a>
@@ -63,7 +63,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <form action="<?= base_url('auditor/mantenimiento/reparacion') ?>" method="POST" class="form-inline">
+                            <form action="<?= base_url('admin/mantenimiento/reparacion') ?>" method="POST" class="form-inline">
                                 <div class="input-group">
                                     <input class="form-control" type="search" id="keywords" name="keywords" size="30"
                                         maxlength="30" placeholder="Buscar" aria-label="Search">
@@ -92,13 +92,20 @@
                     </thead>
                     <tbody>
                         <?php foreach($reparacion as $reparaciones):?>
-                            
+                        <?php foreach($material as $materiales){
+                                        if($materiales->idMate == $reparaciones->nombre){;
+                                            break;
+                                        }
+                                    }
+                                    ?>
                         <tr>
-                            <td><?=$reparaciones->nombre ?></td>
+                            <td><?=$materiales->nombre ?></td>
                             <td><?=$reparaciones->tipoReparacion ?></td>
                             <td><?=$reparaciones->fechaIngreso ?></td>
                             <td><?=$reparaciones->fechaSalida ?></td>
                             <td class="acciones">
+                                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                 <a href="#" class="btn btn-success"><i class="fas fa-qrcode"></i></a>
                             </td>
                         </tr>
@@ -109,6 +116,7 @@
         </div>
     </div>
 </body>
+
 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -118,8 +126,8 @@
             </div>
             <div class="modal-body">
                 <p>¿Qué tipo de reporte deseas generar?</p>
-                <button type="button" class="btn btn-primary" id="generateGeneralReport">Reporte General</button>
-                <button type="button" class="btn btn-secondary" id="generateAulaReport">Reporte lista
+                <button type="button" class="btn btn-primary" id="generateGeneralReport1">Reporte General</button>
+                <button type="button" class="btn btn-secondary" id="generateAulaReport1">Reporte lista
                     materiales</button>
             </div>
         </div>
@@ -127,13 +135,15 @@
 </div>
 
 <script>
-document.getElementById('generateGeneralReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('auditor/Reparacion-General-PDF'); ?>';
+document.getElementById('generateGeneralReport1').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Reparacion-General-PDF1'); ?>';
 });
 
-document.getElementById('generateAulaReport').addEventListener('click', function() {
-    window.location.href = '<?= base_url('auditor/Reparacion-PDF/'); ?>';
+document.getElementById('generateAulaReport1').addEventListener('click', function() {
+    window.location.href = '<?= base_url('admin/Reparacion-PDF1/'); ?>';
 });
 </script>
+
 </html>
-<?= $this->endSection();?>
+
+<?= $this->endSection(); ?>

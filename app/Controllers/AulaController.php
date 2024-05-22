@@ -62,7 +62,69 @@ class AulaController extends BaseController
     
         return view('auditor/aula/aulamenu', $data);
     }
+
     
+    public function generarQR($id)
+    {
+        $inventarioModel = model('InventarioModel');
+        $articulo = $inventarioModel->find($id);
+        
+        // Obtener nombre del material
+        $materialModel = model('MaterialModel');
+        $material = $materialModel->find($articulo->nombre);
+        
+        // Obtener nombre de la categoría
+        $categoriaModel = model('CategoriaModel');
+        $categoria = $categoriaModel->find($articulo->categoria);
+        
+        // Obtener número de aula
+        $aulaModel = model('AulaModel');
+        $aula = $aulaModel->find($articulo->idAula); // Usar idAula en lugar de aula
+    
+        $contenido = /*'Imagen: ' . $articulo->imagen . "\n" .*/
+                     'Nombre: ' . $material->nombre . "\n" .
+                     'Categoría: ' . $categoria->nombre . "\n" .
+                     'Descripción: ' . $articulo->descripcion . "\n" .
+                     'Status: ' . $articulo->status . "\n" .
+                     'Aula: ' . $aula->numero; // Agregar el número de aula al contenido del QR
+    
+        $qrOptions = new QROptions([
+            'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+            'eccLevel'   => QRCode::ECC_L,
+            'scale'      => 10,
+        ]);
+    
+        $qrCode = new QRCode($qrOptions);
+    
+        $dir = WRITEPATH . 'qr/';
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+    
+        $archivo = $dir . $id . '.png';
+    
+        $qrCode->render($contenido, $archivo);
+    
+        return base_url('admin/qr/' . $id . '.png');
+    }
+    
+
+
+    
+    
+    public function verQR($archivo)
+    {
+        $rutaArchivo = WRITEPATH . 'qr/' . $archivo;
+        if (!file_exists($rutaArchivo)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Archivo no encontrado: ' . $archivo);
+        }
+        $respuesta = $this->response
+            ->setContentType('image/png')
+            ->setBody(file_get_contents($rutaArchivo));
+    
+        return $respuesta;
+    }
+
     public function lista($idAula)
 {
     $inventarioModel = model('InventarioModel');
